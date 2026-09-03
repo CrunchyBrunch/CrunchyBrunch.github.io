@@ -20,7 +20,7 @@ export default function Home() {
             <a className="button button-primary" href={withBasePath("/#work")}>View selected work</a>
             <a className="button button-secondary" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
             <a className="button button-secondary" href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
-            <span className="button button-muted" aria-disabled="true">Résumé</span>
+            <a className="button button-secondary" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé</a>
           </div>
         </div>
         <aside className="hero-note" aria-label="Profile summary">
@@ -93,7 +93,7 @@ export default function Home() {
           <a className="button button-primary" href={`mailto:${siteConfig.email}`}>Email</a>
           <a className="button button-secondary" href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
           <a className="button button-secondary" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
-          <span className="button button-muted" aria-disabled="true">Résumé</span>
+          <a className="button button-secondary" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé</a>
         </div>
         <small>Primary: {siteConfig.email} · Penn State: {siteConfig.schoolEmail}</small>
       </section>

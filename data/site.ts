@@ -3,7 +3,7 @@ export const siteConfig = {
   linkedinUrl: "https://www.linkedin.com/in/brooksestadt/",
   email: "brooksestadt80@gmail.com",
   schoolEmail: "bce5138@psu.edu",
-  resumePath: null,
+  resumePath: "/brooks-estadt-resume.pdf",
 } as const;
 
 export const publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || null;

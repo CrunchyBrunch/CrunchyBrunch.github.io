@@ -1,0 +1,9 @@
+{
+  "name": "Brooks Estadt Portfolio",
+  "short_name": "Brooks Estadt",
+  "description": "Architectural engineering, structural engineering, and practical workflow software.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f1ea",
+  "theme_color": "#163a57"
+}

@@ -36,5 +36,6 @@ next-env.d.ts
 /.wrangler/
 /.pnpm-store/
 /.audit-tools/
+/.tmp/
 /outputs/
 /work/

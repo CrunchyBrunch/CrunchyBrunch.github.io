@@ -235,8 +235,6 @@ h1 { font-size: clamp(2.75rem, 6.5vw, 6.15rem); letter-spacing: -0.065em; line-h
 .feature-list li + li { border-top: 1px solid var(--line); }
 .feature-list span { color: var(--steel); font-family: Consolas, monospace; font-size: 0.68rem; padding-top: 2px; }
 .feature-list p { margin: 0; }
-.safety-callout { background: var(--paper-deep); border-left: 4px solid var(--rust); padding: 26px 30px; }
-.safety-callout p:last-child { color: #49535b; margin: 0; }
 .case-sidebar { position: sticky; top: 100px; }
 .case-sidebar > div { border-top: 1px solid var(--line); padding: 24px 0 38px; }
 .case-sidebar ul { color: var(--muted); font-size: 0.83rem; line-height: 1.65; margin: 0; padding-left: 18px; }

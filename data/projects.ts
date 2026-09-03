@@ -25,7 +25,6 @@ export interface Project {
   readonly technicalNotes: readonly string[];
   readonly impact: string;
   readonly currentState: string;
-  readonly publicNote: string;
   readonly links: readonly ProjectLink[];
 }
 
@@ -66,8 +65,6 @@ export const projects: readonly Project[] = [
       "It makes a fragmented design-criteria process easier to review, reuse, and hand off while keeping engineering assumptions and incomplete checks visible.",
     currentState:
       "Active internal workbook. The v1.5 draft includes calculation helpers and an organized output sheet, but it remains an engineering aid that requires source verification and professional review.",
-    publicNote:
-      "Sanitized case study only. Do not publish the workbook, employer-specific standards, project inputs, or ASCE-derived lookup content without an ownership and licensing review.",
     links: [],
   },
   {
@@ -106,8 +103,6 @@ export const projects: readonly Project[] = [
       "It reduces repetitive transcription and drafting setup while leaving calculation ownership, applicability decisions, and final drawing QC with the responsible engineer.",
     currentState:
       "CAD v1.3.5.3 is the frozen shareable AutoCAD workflow. Revit v1.4.2.2 is a separate development track with live acceptance still pending for its latest rich-text correction.",
-    publicNote:
-      "Do not publish this source or its reference packs as-is. The repository contains employer-specific drafting resources, sample engineering files, calculated values, and internal workflow material.",
     links: [],
   },
   {
@@ -146,8 +141,6 @@ export const projects: readonly Project[] = [
       "It gives field measurements a repeatable, reviewable search path and makes uncertainty visible instead of presenting one catalog section as a definitive identification.",
     currentState:
       "Packaged v0.4.0 Windows application with W, C, and L shape-family support and internal distribution documentation.",
-    publicNote:
-      "Do not publish the source bundle as-is. The AISC Shapes Database must never be redistributed here, and employer ownership should be cleared before considering a code-only public release.",
     links: [],
   },
   {
@@ -186,8 +179,6 @@ export const projects: readonly Project[] = [
       "It demonstrates long-term product iteration: solving a small daily problem, using the software personally, and improving its data model, interactions, resilience, and accessibility release by release.",
     currentState:
       "Public v1.6.0 release with a live GitHub Pages deployment and a maintained repository.",
-    publicNote:
-      "Appropriate for public linking. Closet data stays on each user’s device; the published repository contains application code and generic assets only.",
     links: [
       { label: "Live demo", href: "https://crunchybrunch.github.io/fit-roulette/", kind: "demo" },
       { label: "View GitHub", href: "https://github.com/CrunchyBrunch/fit-roulette", kind: "github" },
@@ -228,8 +219,6 @@ export const projects: readonly Project[] = [
       "The work shows how to separate product development from a risky data dependency and document the authorization, accuracy, and attribution conditions required before launch.",
     currentState:
       "Experimental alpha. Keep secondary until an approved Penn State feed or written permission is available and the meal-building workflow is implemented.",
-    publicNote:
-      "Keep the case study public only at a high level. Do not advertise live PSU data, scraping, affiliation, or a public source link until the permission and repository-visibility questions are resolved.",
     links: [],
   },
 ] as const;

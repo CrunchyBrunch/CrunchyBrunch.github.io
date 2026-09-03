@@ -87,10 +87,6 @@ export function ProjectDetail({ project }: { readonly project: Project }) {
               <p>{project.currentState}</p>
             </div>
           </section>
-          <aside className="safety-callout">
-            <p className="section-number">Publication note</p>
-            <p>{project.publicNote}</p>
-          </aside>
         </div>
 
         <aside className="case-sidebar">

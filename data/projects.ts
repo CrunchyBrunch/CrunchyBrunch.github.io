@@ -150,7 +150,7 @@ export const projects: readonly Project[] = [
     group: "Personal software",
     type: "Mobile-first PWA",
     status: "Public · Active",
-    version: "v1.6.0",
+    version: "v1.6",
     featured: true,
     order: 4,
     problem:
@@ -167,7 +167,7 @@ export const projects: readonly Project[] = [
       "Logged outfit history, recency-aware selection, manual logging, and JSON backup / restore",
       "Optional weather context with explicit location consent and manual / offline fallback",
       "PWA installation, service-worker caching, and no-account local storage",
-      "Read-only closet insights and deterministic coverage analysis introduced in v1.6.0",
+      "Read-only closet insights and deterministic coverage analysis introduced in v1.6",
     ],
     technologies: ["HTML", "CSS", "JavaScript", "PWA", "Service Worker", "localStorage"],
     technicalNotes: [
@@ -178,7 +178,7 @@ export const projects: readonly Project[] = [
     impact:
       "It demonstrates long-term product iteration: solving a small daily problem, using the software personally, and improving its data model, interactions, resilience, and accessibility release by release.",
     currentState:
-      "Public v1.6.0 release with a live GitHub Pages deployment and a maintained repository.",
+      "Public v1.6 release with a live GitHub Pages deployment and a maintained repository.",
     links: [
       { label: "Live demo", href: "https://crunchybrunch.github.io/fit-roulette/", kind: "demo" },
       { label: "View GitHub", href: "https://github.com/CrunchyBrunch/fit-roulette", kind: "github" },

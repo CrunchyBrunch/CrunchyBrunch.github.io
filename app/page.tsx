@@ -72,7 +72,7 @@ export default function Home() {
         </div>
         <div className="timeline">
           <article><span className="timeline-marker">01</span><div><p className="timeline-type">Professional experience</p><h3>Structural Engineering Intern</h3><p className="timeline-org">Greenman-Pedersen, Inc. (GPI)</p><p>Worked with structural calculations, existing-member investigation, field surveys, CAD and Revit workflows, design documents, and engineering automation.</p></div></article>
-          <article><span className="timeline-marker">02</span><div><p className="timeline-type">Education</p><h3>B.A.E./M.A.E. in Architectural Engineering</h3><p className="timeline-org">Pennsylvania State University, University Park</p><p>Structural Option · GPA: 3.9 · Expected 2029</p></div></article>
+          <article><span className="timeline-marker">02</span><div><p className="timeline-type">Education</p><h3>B.A.E./M.A.E. in Architectural Engineering</h3><p className="timeline-org">Pennsylvania State University, University Park</p><p>Structural Option · GPA: 3.85 · Expected 2029</p></div></article>
         </div>
       </section>
 

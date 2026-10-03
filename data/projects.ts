@@ -162,23 +162,26 @@ export const projects: readonly Project[] = [
     solution:
       "The app combines structured garment data with explicit compatibility rules, outfit history, context, and user controls while keeping wardrobe data in the browser.",
     features: [
-      "One-press generation, reroll, build-around-item, and item-swap workflows",
+      "One-press generation, repeat-aware rerolls, build-around-item, and item-swap workflows",
       "Closet management with availability, archive states, pair rules, and exact bans",
-      "Logged outfit history, recency-aware selection, manual logging, and JSON backup / restore",
+      "Unified garment editing with duplicate warnings and unsaved-draft protection",
+      "Manual logging and history editing with slot-conflict checks and preserved garment snapshots",
+      "Recency-aware selection, JSON backup / restore, and history date guardrails",
       "Optional weather context with explicit location consent and manual / offline fallback",
       "PWA installation, service-worker caching, and no-account local storage",
-      "Read-only closet insights and deterministic coverage analysis introduced in v1.6",
+      "Read-only closet and outfit-history insights with deterministic coverage analysis",
     ],
     technologies: ["HTML", "CSS", "JavaScript", "PWA", "Service Worker", "localStorage"],
     technicalNotes: [
       "Static application with no backend, database server, paid API, analytics, or external model",
       "Schema-versioned local data with protected recovery copies during migrations",
-      "Open-Meteo is used only for opt-in current conditions with visible attribution",
+      "Opt-in weather sends rounded coordinates to Open-Meteo, never closet or history data; manual context remains available",
+      "Coverage analysis reports a lower bound when its candidate limit is reached; layering supports one optional layer, not arbitrary stacks",
     ],
     impact:
       "It demonstrates long-term product iteration: solving a small daily problem, using the software personally, and improving its data model, interactions, resilience, and accessibility release by release.",
     currentState:
-      "Public v1.6 release with a live GitHub Pages deployment and a maintained repository.",
+      "Public v1.6 series with a live GitHub Pages deployment. Recent updates improve interface consistency, garment editing, and manual-history safeguards.",
     links: [
       { label: "Live demo", href: "https://crunchybrunch.github.io/fit-roulette/", kind: "demo" },
       { label: "View GitHub", href: "https://github.com/CrunchyBrunch/fit-roulette", kind: "github" },
@@ -189,37 +192,41 @@ export const projects: readonly Project[] = [
     name: "LionLog",
     shortName: "LionLog",
     group: "Personal software",
-    type: "Dining workflow prototype",
+    type: "Dining menu PWA",
     status: "Experimental · In Development",
-    version: "v0.1.0-alpha.2.1",
+    version: "v0.2.0-alpha.4",
     featured: false,
     order: 5,
     problem:
-      "Penn State dining menus make it difficult to compare available items against practical meal and macronutrient goals in one workflow.",
+      "Checking Penn State dining options means navigating menus by location, date, and meal while keeping track of serving information and data freshness.",
     summary:
-      "A mobile-first Penn State dining tool designed to make planning and logging meals faster. Live menu ingestion and nutrition workflows are currently in development.",
+      "A mobile-first Penn State dining menu browser with validated public-menu snapshots, nutrition display, and explicit data-freshness states. Currently in alpha development.",
     overview:
-      "LionLog currently proves the browsing and meal-context foundation: dining hall, meal period, service date, venue filtering, and nutrition display. It intentionally does not claim live Penn State data or a completed optimizer.",
+      "LionLog has grown from a sample-data prototype into a menu browser backed by validated snapshots of Penn State public dining menus. It keeps sample mode separate and makes unavailable or outdated data visible. It is an independent project, not an official Penn State service.",
     solution:
-      "The prototype uses replaceable provider interfaces and sample menu data so the product surface and domain contracts can develop without unauthorized production retrieval.",
+      "A manually run ingestion workflow retrieves public menu HTML outside the React app, validates versioned snapshots, and exports a static catalog. The PWA reads those snapshots through provider interfaces and labels their source and freshness.",
     features: [
       "Dining hall, meal period, service date, and venue selection",
-      "Responsive sample menu with source serving units, protein, and calorie display",
-      "Provider and domain boundaries prepared for a future authorized source",
-      "PWA assets and offline-oriented application shell",
-      "Documented caching, validation, attribution, failure, and data-minimization policy",
+      "Responsive menus with source serving units and available nutrition information",
+      "Manual public-menu ingestion, snapshot validation, and static catalog export",
+      "Explicit live, cached, stale, sample, and unavailable data states",
+      "Separate sample mode with no silent sample substitution when menu data is unavailable",
+      "PWA shell and a reviewable field-release artifact workflow",
     ],
-    technologies: ["React", "TypeScript", "Vinext", "Vite", "PWA architecture"],
+    technologies: ["React", "TypeScript", "Vinext", "Vite", "Zod", "PWA"],
     technicalNotes: [
-      "Current UI uses deterministic sample data and says so prominently",
-      "A public-source audit found no supported structured API and a robots policy that blocks automated production retrieval",
-      "The meal-optimizer interface exists as a domain contract, but optimization is not implemented",
+      "Public-menu HTML is parsed outside the browser app; no official Penn State API is claimed",
+      "Snapshots are validated before export and delivery; missing, invalid, or expired data is unavailable rather than replaced with samples",
+      "Release preparation and deployment are separate, manually dispatched workflows; scheduled production scraping is not implemented",
+      "Meal optimization, nutrition targets, accounts, a food diary, and analytics are not implemented",
     ],
     impact:
-      "The work shows how to separate product development from a risky data dependency and document the authorization, accuracy, and attribution conditions required before launch.",
+      "The project demonstrates a transparent data pipeline: separating retrieval from presentation, validating source data, and making freshness and failure states understandable to the user.",
     currentState:
-      "Experimental alpha. Keep secondary until an approved Penn State feed or written permission is available and the meal-building workflow is implemented.",
-    links: [],
+      "v0.2.0-alpha.4 supports preparing a reviewable field-release artifact with validated menu snapshots. Public deployment remains a separate step; this is a menu browser, not a completed meal-planning or logging system.",
+    links: [
+      { label: "View GitHub", href: "https://github.com/CrunchyBrunch/LionLog", kind: "github" },
+    ],
   },
 ] as const;
 

@@ -29,9 +29,10 @@ export function ProjectDetail({ project }: { readonly project: Project }) {
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
   return (
-    <main id="top">
+    <>
       <SiteHeader />
-      <section className="case-hero drafting-grid">
+      <main id="content" tabIndex={-1}>
+      <section className="case-hero">
         <div className="case-breadcrumb"><a href={withBasePath("/#work")}>Selected work</a><span>/</span><span>{project.shortName}</span></div>
         <div className="case-hero-grid">
           <div>
@@ -105,7 +106,8 @@ export function ProjectDetail({ project }: { readonly project: Project }) {
         <span>Next case study</span>
         <strong>{nextProject.name} →</strong>
       </a>
+      </main>
       <SiteFooter />
-    </main>
+    </>
   );
 }

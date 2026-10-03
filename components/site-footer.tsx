@@ -1,4 +1,4 @@
-import { siteConfig, withBasePath } from "../data/site";
+import { withBasePath } from "../data/site";
 
 export function SiteFooter() {
   return (
@@ -8,9 +8,6 @@ export function SiteFooter() {
         <p>Brooks Estadt · Architectural Engineering</p>
       </div>
       <div className="footer-links">
-        <a href={`mailto:${siteConfig.email}`}>Email</a>
-        <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-        <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
         <a href={withBasePath("/#top")}>Back to top ↑</a>
       </div>
     </footer>

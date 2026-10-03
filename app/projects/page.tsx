@@ -8,11 +8,13 @@ export const metadata: Metadata = { title: "Projects | Brooks Estadt" };
 
 export default function ProjectsPage() {
   return (
-    <main id="top">
+    <>
       <SiteHeader />
-      <section className="index-hero drafting-grid"><p className="eyebrow">Project index</p><h1>Engineering tools & personal software.</h1><p>Five locally audited projects, with professional work kept at the sanitized case-study level.</p></section>
-      <section className="section-shell"><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
+      <main id="content" tabIndex={-1}>
+      <section className="index-hero"><p className="eyebrow">Project index</p><h1>Engineering tools & personal software.</h1><p>Selected engineering workflows and personal projects. Professional work is presented through sanitized case studies.</p></section>
+      <section className="section-shell"><h2 className="visually-hidden">All projects</h2><div className="project-list">{projects.map((project, index) => <ProjectCard project={project} index={index} key={project.slug} />)}</div></section>
+      </main>
       <SiteFooter />
-    </main>
+    </>
   );
 }

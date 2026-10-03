@@ -1,103 +1,111 @@
 import { ProjectCard } from "../components/project-card";
+import { Reveal } from "../components/reveal";
 import { SiteFooter } from "../components/site-footer";
 import { SiteHeader } from "../components/site-header";
-import { featuredProjects, secondaryProjects } from "../data/projects";
+import { getProject } from "../data/projects";
 import { siteConfig, withBasePath } from "../data/site";
+
+const selectedWork = [
+  {
+    project: getProject("design-criteria-calculator"),
+    description: "An Excel workflow that organizes structural design inputs and calculation helpers into a reviewable summary.",
+    tags: ["Excel", "ASCE 7-16", "Engineering QC"],
+  },
+  {
+    project: getProject("aisc-section-finder"),
+    description: "A desktop tool that turns field measurements into ranked steel-section matches for engineering review.",
+    tags: ["Python", "AISC shapes", "Field investigation"],
+  },
+  {
+    project: getProject("fit-roulette"),
+    description: "A wardrobe PWA for generating, adjusting, and logging outfits, with closet data kept in the browser.",
+    tags: ["JavaScript", "PWA", "Local storage"],
+  },
+];
+
+const otherWork = [
+  { project: getProject("cad-revit-wind-generator"), description: "Completed wind calculations to drawing-ready CAD output. Revit development ongoing." },
+  { project: getProject("lionlog"), description: "A Penn State dining menu browser with validated menu snapshots. In alpha development." },
+];
 
 export default function Home() {
   return (
-    <main id="top">
+    <>
       <SiteHeader root />
-      <section className="hero drafting-grid">
-        <div className="hero-copy">
-          <h1>Structural engineering.<br />Better tools where they help.</h1>
-          <p className="hero-lede">
-            I&apos;m Brooks Estadt, an architectural engineering student at Penn State focused on
-            building structures. I also build tools that cut repetitive work out of structural
-            engineering workflows.
-          </p>
-          <div className="hero-actions" aria-label="Profile links">
-            <a className="button button-primary" href={withBasePath("/#work")}>View selected work</a>
-            <a className="button button-secondary" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
-            <a className="button button-secondary" href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a className="button button-secondary" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé</a>
+      <main id="content" tabIndex={-1}>
+        <section className="hero" aria-labelledby="hero-title">
+          <Reveal className="hero-copy">
+            <p className="hero-identity">Architectural Engineering <span aria-hidden="true">/</span> Penn State <span aria-hidden="true">/</span> Structures</p>
+            <h1 id="hero-title">Structural engineering.<br /><span>Better tools where they help.</span></h1>
+            <p className="hero-lede">I&apos;m Brooks Estadt, an architectural engineering student focused on building structures. I also build tools that cut repetitive work out of structural engineering workflows.</p>
+            <div className="hero-actions" aria-label="Primary actions">
+              <a className="button button-primary" href={withBasePath("/#work")}>Selected work <span aria-hidden="true">↓</span></a>
+              <a className="text-link" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé <span aria-hidden="true">↗</span></a>
+            </div>
+            <p className="hero-availability">Seeking structural engineering internships <span aria-hidden="true">·</span> Expected graduation 2029</p>
+          </Reveal>
+        </section>
+
+        <section className="section-shell work-section" id="work" aria-labelledby="work-title">
+          <Reveal className="section-heading">
+            <h2 id="work-title">Selected work</h2>
+            <p>Practical tools, built around real work.<br />Engineering case studies use sanitized material.</p>
+          </Reveal>
+          <div className="project-list">
+            {selectedWork.map(({ project, description, tags }, index) => (
+              <ProjectCard project={project} index={index} description={description} tags={tags} key={project.slug} />
+            ))}
           </div>
-        </div>
-        <aside className="hero-note" aria-label="Profile summary">
-          <span className="detail-number">01 / PROFILE</span>
-          <div><p>Seeking</p><strong>Structural engineering internships</strong></div>
-          <div><p>School</p><strong>Pennsylvania State University, University Park</strong></div>
-          <div><p>Expected graduation</p><strong>2029</strong></div>
-        </aside>
-      </section>
+          <div className="other-work">
+            <h3>Other work</h3>
+            <div className="other-work-list">
+              {otherWork.map(({ project, description }) => (
+                <article key={project.slug}>
+                  <h4><a href={withBasePath(`/projects/${project.slug}/`)}>{project.name} <span aria-hidden="true">↗</span></a></h4>
+                  <p>{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <Reveal className="engineering-statement">
+            <p className="eyebrow">A working principle</p>
+            <p className="statement">Software should help the engineer,<br className="desktop-break" /> not pretend to be one.</p>
+            <p className="statement-note">Automate the repetitive part. Keep assumptions visible and engineering judgment with the engineer.</p>
+          </Reveal>
+        </section>
 
-      <section className="positioning-strip" aria-label="Career summary">
-        <div><span>Program</span><strong>Architectural Engineering</strong></div>
-        <div><span>Focus</span><strong>Building Structures</strong></div>
-        <div><span>Experience</span><strong>Structural Engineering Intern, GPI</strong></div>
-        <div><span>Also building</span><strong>Engineering tools and automation</strong></div>
-      </section>
+        <section className="section-shell experience-section" id="experience" aria-labelledby="experience-title">
+          <Reveal className="section-heading"><h2 id="experience-title">Experience & education</h2></Reveal>
+          <div className="timeline">
+            <article>
+              <div><h3>Structural Engineering Intern</h3><p className="timeline-org">Greenman-Pedersen, Inc. (GPI)</p></div>
+              <p className="timeline-copy">Structural calculations, existing-member investigation, field surveys, CAD and Revit workflows, design documents, and engineering automation.</p>
+              <p className="timeline-date">Summer 2026</p>
+            </article>
+            <article>
+              <div><h3>B.A.E./M.A.E. in Architectural Engineering</h3><p className="timeline-org">Pennsylvania State University, University Park</p></div>
+              <p className="timeline-copy">Structural Option<br />GPA: 3.85</p>
+              <p className="timeline-date">Expected 2029</p>
+            </article>
+          </div>
+        </section>
 
-      <section className="section-shell" id="work">
-        <div className="section-heading">
-          <div><h2>Selected work</h2></div>
-        </div>
-        <div className="project-group-heading"><h3>Engineering tools</h3><span>Case studies · source private</span></div>
-        <p className="project-group-copy">These are sanitized case studies of tools built around real engineering work. Employer files, project data, and private source material are not included.</p>
-        <div className="project-list">
-          {featuredProjects.filter((project) => project.group === "Engineering tools").map((project, index) => (
-            <ProjectCard project={project} index={index} key={project.slug} />
-          ))}
-        </div>
-        <div className="project-group-heading personal-heading"><h3>Personal software</h3><span>Public work + experiments</span></div>
-        <p className="project-group-copy">A few things I build outside structural engineering.</p>
-        <div className="project-list">
-          {featuredProjects.filter((project) => project.group === "Personal software").map((project, index) => (
-            <ProjectCard project={project} index={index + 3} key={project.slug} />
-          ))}
-        </div>
-        {secondaryProjects.map((project) => (
-          <article className="secondary-project" key={project.slug}>
-            <div><p className="eyebrow">In development</p><h3>{project.name}</h3></div>
-            <p>{project.summary}</p>
-            <a className="text-link" href={withBasePath(`/projects/${project.slug}/`)}>Read project note →</a>
-          </article>
-        ))}
-      </section>
-
-      <section className="experience-section" id="experience">
-        <div className="section-heading">
-          <div><p className="eyebrow">Experience & education</p><h2>Structural engineering is the main thing.</h2></div>
-          <p>Most of the software came later. The useful ideas usually started with something repetitive or just slow in actual engineering work.</p>
-        </div>
-        <div className="timeline">
-          <article><span className="timeline-marker">01</span><div><p className="timeline-type">Professional experience</p><h3>Structural Engineering Intern</h3><p className="timeline-org">Greenman-Pedersen, Inc. (GPI)</p><p>Worked with structural calculations, existing-member investigation, field surveys, CAD and Revit workflows, design documents, and engineering automation.</p></div></article>
-          <article><span className="timeline-marker">02</span><div><p className="timeline-type">Education</p><h3>B.A.E./M.A.E. in Architectural Engineering</h3><p className="timeline-org">Pennsylvania State University, University Park</p><p>Structural Option · GPA: 3.85 · Expected 2029</p></div></article>
-        </div>
-      </section>
-
-      <section className="about-section" id="about">
-        <div><p className="eyebrow">How I build engineering tools</p><h2>Software should help the engineer, not pretend to be one.</h2></div>
-        <div className="principles">
-          <article><span>01</span><h3>Keep the important stuff visible</h3><p>Assumptions, source values, overrides, and review states should be easy to find.</p></article>
-          <article><span>02</span><h3>Automate the repetitive part</h3><p>Transcription, formatting, searching, and data transfer are good automation targets. Engineering judgment stays with the engineer.</p></article>
-          <article><span>03</span><h3>Be clear about the limits</h3><p>Every tool should make its inputs, intended use, current limitations, and unfinished pieces obvious.</p></article>
-        </div>
-      </section>
-
-      <section className="contact-section drafting-grid" id="contact">
-        <p className="eyebrow">Contact</p>
-        <h2>Looking for a structural engineering intern?</h2>
-        <p>I&apos;m interested in building-structure work where I can contribute, learn from practicing engineers, and keep improving in the profession.</p>
-        <div className="hero-actions">
-          <a className="button button-primary" href={`mailto:${siteConfig.email}`}>Email</a>
-          <a className="button button-secondary" href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
-          <a className="button button-secondary" href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a className="button button-secondary" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé</a>
-        </div>
-        <small>Primary: {siteConfig.email} · Penn State: {siteConfig.schoolEmail}</small>
-      </section>
+        <section className="contact-section" id="contact" aria-labelledby="contact-title">
+          <div className="contact-inner">
+            <div><p className="eyebrow">Contact</p><h2 id="contact-title">Let&apos;s talk structures.</h2><p>I&apos;m looking for a structural engineering internship where I can contribute, learn from practicing engineers, and keep improving.</p></div>
+            <div className="contact-links">
+              <a className="contact-email" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">↗</span></a>
+              <div className="social-links">
+                <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+                <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+                <a href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé <span aria-hidden="true">↗</span></a>
+              </div>
+              <a className="school-email" href={`mailto:${siteConfig.schoolEmail}`}>Penn State: {siteConfig.schoolEmail}</a>
+            </div>
+          </div>
+        </section>
+      </main>
       <SiteFooter />
-    </main>
+    </>
   );
 }

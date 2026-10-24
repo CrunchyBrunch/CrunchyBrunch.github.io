@@ -1,4 +1,4 @@
-# Brooks Estadt — Engineering Portfolio
+# Brooks Estadt: Engineering Portfolio
 
 A static personal portfolio for structural-engineering recruiting, career fairs, and concise project case studies. The site keeps professional work sanitized while giving public personal software direct GitHub and demo links.
 

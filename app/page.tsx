@@ -15,7 +15,7 @@ export default function Home() {
           <Reveal className="hero-copy">
             <p className="hero-identity">Brooks Estadt <span aria-hidden="true">/</span> Penn State <span aria-hidden="true">/</span> Structures</p>
             <h1 id="hero-title">Structural engineering.<br /><span>Better tools where they help.</span></h1>
-            <p className="hero-lede">I&apos;m Brooks, an architectural engineering student at Penn State focused on structures. My internship at GPI took me from field surveys to design and analysis. I enjoy that work—and finding the repetitive parts I can make easier with software.</p>
+            <p className="hero-lede">I&apos;m Brooks, an architectural engineering student at Penn State focused on structures. My internship at GPI took me from field surveys to design and analysis. I enjoy that work, and I like finding repetitive tasks I can make easier with software.</p>
             <div className="hero-actions" aria-label="Primary actions">
               <a className="button button-primary" href={withBasePath("/#work")}>Selected work <span aria-hidden="true">↓</span></a>
               <a className="text-link" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé <span aria-hidden="true">↗</span></a>

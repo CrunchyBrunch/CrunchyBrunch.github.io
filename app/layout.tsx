@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title,
     description,
     ...(publicSiteUrl ? { url: publicSiteUrl } : {}),
-    ...(socialImage ? { images: [{ url: socialImage, width: 1200, height: 630, alt: "Brooks Estadt — Architectural Engineering · Structural Focus" }] } : {}),
+    ...(socialImage ? { images: [{ url: socialImage, width: 1200, height: 630, alt: "Brooks Estadt: Architectural Engineering · Structural Focus" }] } : {}),
   },
   twitter: {
     card: "summary_large_image",

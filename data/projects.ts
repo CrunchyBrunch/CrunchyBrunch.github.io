@@ -223,7 +223,7 @@ export const projects: readonly Project[] = [
         id: "ongoing-work",
         title: "A small annoyance, a substantial project",
         paragraphs: [
-          "The public v1.6.3 release brings these pieces together. Keeping the app useful as it grows has meant paying attention to data migration, offline behavior, accessibility, and the details of editing and logging—not just outfit generation.",
+          "The public v1.6.3 release brings these pieces together. Keeping the app useful as it grows has meant paying attention to data migration, offline behavior, accessibility, and the details of editing and logging, not just outfit generation.",
           "This is the project I keep coming back to because I use it. The interesting work is often in the small interactions I notice after the original idea already works.",
         ],
       },
@@ -250,7 +250,7 @@ export const projects: readonly Project[] = [
     summary:
       "My attempt to make Penn State dining menus and available nutrition information easier to browse. Currently an alpha, independent of Penn State.",
     introduction:
-      "Penn State publishes its dining menus, but finding what I want to eat—and the available nutrition information—can still take more digging than I'd like. LionLog starts with making that information easier to find on a phone.",
+      "Penn State publishes its dining menus, but finding what I want to eat can still take more digging than I'd like, especially when I want to check the nutrition information. LionLog starts with making that information easier to find on a phone.",
     sections: [
       {
         id: "menu-browser",

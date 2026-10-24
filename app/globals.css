@@ -36,11 +36,11 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .site-nav a, .text-link, .social-links a, .other-work a, .case-breadcrumb a, .school-email, .footer-links a { transition: color 180ms ease; }
 .site-nav a:hover, .text-link:hover, .other-work a:hover, .case-breadcrumb a:hover, .footer-links a:hover { color: var(--rust); }
 
-.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 340px); align-items: center; gap: clamp(32px, 5vw, 72px); padding: clamp(56px, 6vw, 88px) max(var(--gutter), calc((100vw - var(--content)) / 2)) 64px; }
+.hero { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr) minmax(160px, 204px); align-items: center; gap: clamp(32px, 5vw, 72px); padding: clamp(56px, 6vw, 88px) max(var(--gutter), calc((100vw - var(--content)) / 2)) 64px; }
 .hero::before { content: ""; position: absolute; inset: 0 0 0 45%; z-index: -1; background-image: linear-gradient(to right, rgba(22, 58, 87, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(22, 58, 87, 0.05) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(100deg, transparent, black); }
 .hero-copy { min-width: 0; }
 .hero h1 { font-size: clamp(2.7rem, 4.3vw, 4rem); }
-.hero-portrait { width: 100%; max-width: 340px; }
+.hero-portrait { width: 100%; max-width: 204px; }
 .hero-portrait img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 40%; border-radius: 3px; }
 .hero-identity { color: var(--muted); font-size: 0.79rem; letter-spacing: 0.025em; margin-bottom: 26px; }
 .hero-identity span { color: var(--line); margin-inline: 10px; }
@@ -168,7 +168,7 @@ h1 { font-size: clamp(2.6rem, 5.65vw, 5.1rem); font-weight: 600; letter-spacing:
 }
 
 @media (max-width: 1000px) {
-  .hero { grid-template-columns: minmax(0, 1fr) 28%; gap: 32px; }
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(144px, 20%); gap: 32px; }
   .timeline article { grid-template-columns: 1fr 1fr; gap: 12px 32px; }
   .timeline-date { grid-column: 1; grid-row: 2; }
   .timeline-copy { grid-column: 2; grid-row: 1 / 3; }

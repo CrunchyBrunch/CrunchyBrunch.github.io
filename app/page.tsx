@@ -23,7 +23,7 @@ export default function Home() {
             <p className="hero-availability">Seeking a <strong>Summer 2027</strong> structural engineering internship <span aria-hidden="true">·</span> Graduating 2029</p>
           </Reveal>
           <div className="hero-portrait">
-            <Image src={withBasePath("/brooks-estadt-portrait.webp")} alt="Brooks Estadt wearing a navy jacket and light blue shirt" width={800} height={800} unoptimized priority sizes="(max-width: 760px) 176px, (max-width: 1000px) 28vw, 340px" />
+            <Image src={withBasePath("/brooks-estadt-portrait.webp")} alt="Brooks Estadt wearing a navy jacket and light blue shirt" width={800} height={800} unoptimized priority sizes="(max-width: 760px) 176px, (max-width: 1000px) 20vw, 204px" />
           </div>
         </section>
 

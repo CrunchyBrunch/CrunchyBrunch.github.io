@@ -2,7 +2,7 @@ import type { Project } from "../data/projects";
 import { withBasePath } from "../data/site";
 import { Reveal } from "./reveal";
 
-export function ProjectCard({ project, index, description = project.summary, tags = project.technologies.slice(0, 3) }: {
+export function ProjectCard({ project, index, description = project.summary, tags = project.cardTags }: {
   readonly project: Project;
   readonly index: number;
   readonly description?: string;
@@ -20,7 +20,7 @@ export function ProjectCard({ project, index, description = project.summary, tag
         <p className="project-category">{project.group === "Engineering tools" ? "Engineering tool" : "Personal software"}</p>
         <h3><a href={withBasePath(`/projects/${project.slug}/`)}>{project.name}</a></h3>
         <p>{description}</p>
-        <ul className="tag-list" aria-label={`${project.name} technologies`}>
+        <ul className="tag-list" aria-label={`${project.name} topics`}>
           {tags.map((technology) => <li key={technology}>{technology}</li>)}
         </ul>
       </div>

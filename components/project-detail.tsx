@@ -51,55 +51,39 @@ export function ProjectDetail({ project }: { readonly project: Project }) {
           </div>
           <aside className="case-spec" aria-label="Project details">
             <div><span>Status</span><strong>{project.status}</strong></div>
-            <div><span>Current version</span><strong>{project.version}</strong></div>
             <div><span>Category</span><strong>{project.group}</strong></div>
           </aside>
         </div>
       </section>
 
       <section className="case-layout">
+        <aside className="case-sidebar">
+          <nav aria-label="In this case study">
+            <h2 className="section-number">In this project</h2>
+            <ul className="case-contents">{project.sections.map((section) => <li key={section.id}><a href={`#${section.id}`}>{section.title}</a></li>)}<li><a href="#technical-notes">Technical notes & scope</a></li></ul>
+          </nav>
+        </aside>
         <div className="case-main">
-          <section className="case-section">
-            <p className="section-number">01 / Overview</p>
-            <p className="case-intro">{project.overview}</p>
-          </section>
-          <section className="case-section two-column-copy">
-            <div><p className="section-number">02 / Problem</p><h2>What needed to improve</h2><p>{project.problem}</p></div>
-            <div><p className="section-number">03 / Solution</p><h2>How the tool responds</h2><p>{project.solution}</p></div>
-          </section>
-          <section className="case-section">
-            <p className="section-number">04 / Key capabilities</p>
-            <h2>Verified in the current version</h2>
-            <ol className="feature-list">
-              {project.features.map((feature, index) => (
-                <li key={feature}><span>{String(index + 1).padStart(2, "0")}</span><p>{feature}</p></li>
-              ))}
-            </ol>
-          </section>
-          <section className="case-section two-column-copy">
-            <div>
-              <p className="section-number">05 / Engineering impact</p>
-              <h2>Value without overstating it</h2>
-              <p>{project.impact}</p>
-            </div>
-            <div>
-              <p className="section-number">06 / Current state</p>
-              <h2>Where it stands</h2>
-              <p>{project.currentState}</p>
-            </div>
+          <div className="case-introduction"><p className="case-intro">{project.introduction}</p></div>
+          {project.sections.map((section, index) => (
+            <section className="case-section" aria-labelledby={section.id} key={section.id}>
+              <p className="section-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</p>
+              <h2 id={section.id}>{section.title}</h2>
+              {section.paragraphs?.map((paragraph) => <p className="case-copy" key={paragraph}>{paragraph}</p>)}
+              {section.items && (
+                <ul className="feature-list">
+                  {section.items.map((item) => <li key={item}><p>{item}</p></li>)}
+                </ul>
+              )}
+            </section>
+          ))}
+          <section className="case-section technical-notes" aria-labelledby="technical-notes">
+            <h2 id="technical-notes">Technical notes & scope</h2>
+            <ul>{project.technicalNotes.map((note) => <li key={note}>{note}</li>)}</ul>
+            <h3 className="section-number tools-heading">Tools & formats</h3>
+            <ul className="tag-list">{project.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
           </section>
         </div>
-
-        <aside className="case-sidebar">
-          <div>
-            <p className="section-number">Technical notes</p>
-            <ul>{project.technicalNotes.map((note) => <li key={note}>{note}</li>)}</ul>
-          </div>
-          <div>
-            <p className="section-number">Tools & formats</p>
-            <ul className="sidebar-tags">{project.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
-          </div>
-        </aside>
       </section>
 
       <a className="next-project" href={withBasePath(`/projects/${nextProject.slug}/`)}>

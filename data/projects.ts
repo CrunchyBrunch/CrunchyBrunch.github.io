@@ -6,6 +6,13 @@ export interface ProjectLink {
   readonly kind: "github" | "demo";
 }
 
+export interface ProjectSection {
+  readonly id: string;
+  readonly title: string;
+  readonly paragraphs?: readonly string[];
+  readonly items?: readonly string[];
+}
+
 export interface Project {
   readonly slug: string;
   readonly name: string;
@@ -13,96 +20,66 @@ export interface Project {
   readonly group: ProjectGroup;
   readonly type: string;
   readonly status: string;
-  readonly version: string;
-  readonly featured: boolean;
-  readonly order: number;
-  readonly problem: string;
   readonly summary: string;
-  readonly overview: string;
-  readonly solution: string;
-  readonly features: readonly string[];
+  readonly introduction: string;
+  readonly sections: readonly ProjectSection[];
+  readonly cardTags: readonly string[];
   readonly technologies: readonly string[];
   readonly technicalNotes: readonly string[];
-  readonly impact: string;
-  readonly currentState: string;
   readonly links: readonly ProjectLink[];
 }
 
+// Display order also controls the next-project links on each case study.
 export const projects: readonly Project[] = [
-  {
-    slug: "design-criteria-calculator",
-    name: "Design Criteria Calculator",
-    shortName: "Design Criteria",
-    group: "Engineering tools",
-    type: "Structural Engineering Tool",
-    status: "Internal · Case Study",
-    version: "v1.5",
-    featured: true,
-    order: 1,
-    problem:
-      "Structural design criteria can end up spread across hazard reports, reference tables, engineer selections, and repetitive spreadsheets.",
-    summary:
-      "An Excel workflow that keeps those inputs organized, handles formula-driven design helpers, and produces a clean summary for the calculation package.",
-    overview:
-      "The current workbook is a focused office-standard cleanup draft for compiling project design criteria from verified external sources and visible engineering inputs. It keeps assumptions editable, calculated cells distinct, and review items explicit.",
-    solution:
-      "The workbook separates project information, hazard inputs, snow, wind, seismic, rain, geotechnical, and gravity-load data into reviewable sheets, then assembles selected values on one output sheet.",
-    features: [
-      "Manual ASCE Hazard Report input for snow, wind, seismic, and rain values",
-      "Formula-driven snow factor workflow for Ce, Ct, Is, Pf, and a controlled Cs interpolation helper",
-      "Directional wind exposure review framework with engineer overrides",
-      "Seismic system lookup for R, Ω₀, Cd, permitted-height status, approximate period, and ELF Cs guidance",
-      "Expandable gravity-load table and consolidated output sheet",
-      "Visible VERIFY / Needs Review states where judgment or source confirmation is still required",
-    ],
-    technologies: ["Excel", "Formula-driven workflows", "ASCE 7-16", "Engineering QC"],
-    technicalNotes: [
-      "Fourteen-sheet workbook with centralized lookup and QC tables",
-      "Input, calculation, source, and guidance cells use separate visual conventions",
-      "Snow drift, full wind-pressure calculations, and C&C pressures remain external or future scope",
-    ],
-    impact:
-      "It makes a fragmented design-criteria process easier to review, reuse, and hand off while keeping engineering assumptions and incomplete checks visible.",
-    currentState:
-      "Active internal workbook. The v1.5 draft includes calculation helpers and an organized output sheet, but it remains an engineering aid that requires source verification and professional review.",
-    links: [],
-  },
   {
     slug: "cad-revit-wind-generator",
     name: "CAD–Revit C&C Wind Generator",
     shortName: "C&C Wind Generator",
     group: "Engineering tools",
-    type: "Engineering Automation",
-    status: "Internal · Case Study",
-    version: "CAD v1.3.5.3 · Revit v1.4.2.2 dev",
-    featured: true,
-    order: 2,
-    problem:
-      "Once component-and-cladding pressures are calculated, they still have to be transferred into drawing-ready output and checked.",
+    type: "Calculation-to-drawing workflow",
+    status: "Internal CAD tool · Revit in development",
     summary:
-      "A desktop tool that reads completed TEDDS output, structures the results, and generates CAD deliverables for engineer review.",
-    overview:
-      "The released CAD path focuses on moving completed TEDDS component-and-cladding results into a repeatable drafting workflow. A separate Revit renderer is in active development and has reached live proof-of-concept and full-layout test milestones.",
-    solution:
-      "A packaged Windows application parses a TEDDS Word export, preserves distinct component and effective-area rows, prompts for review-sensitive zone information, and produces a DXF detail plus normalized data and QC outputs.",
-    features: [
-      "Packaged desktop workflow for coworkers without a Python installation",
-      "TEDDS Word-table parsing with normalized pressure rows and signs",
-      "Independent Zone 3 and Zone 5 note applicability and distance handling",
-      "Preferred AC1015 DXF output plus a diagnostic text fallback",
-      "CSV, JSON, and QC report outputs for transparent checking",
-      "Separate native Revit 2025 renderer development with template validation and rollback safeguards",
+      "I built a Windows tool to carry completed TEDDS wind-pressure results into CAD details and QC files. A separate Revit version is in development.",
+    introduction:
+      "Finishing a wind-pressure calculation doesn't finish the drawing. The results still need to be transferred, formatted, and checked. That repetitive work was the part I wanted to tackle.",
+    sections: [
+      {
+        id: "calculation-to-drawing",
+        title: "From a completed calculation to a drawing",
+        paragraphs: [
+          "The workflow starts with a Word export of a completed Tekla TEDDS component-and-cladding calculation. My Python application reads the tables, organizes the pressure results, and creates a DXF detail alongside CSV, JSON, and QC files.",
+          "The CAD workflow is packaged for Windows, so coworkers can use it without installing Python. It transfers calculated values; it does not calculate wind loads or decide where they apply.",
+        ],
+      },
+      {
+        id: "checking-the-transfer",
+        title: "Keeping the transfer checkable",
+        paragraphs: [
+          "Getting numbers into a drawing is only useful if their meaning survives the trip. Component rows, effective areas, pressure signs, and zone information need to stay distinct.",
+        ],
+        items: [
+          "The parser preserves separate component and effective-area rows rather than collapsing them into one pressure value.",
+          "Zone 3 and Zone 5 distances and note applicability are handled independently, with review-sensitive choices left to the user.",
+          "Normalized CSV and JSON outputs and a QC report make it possible to compare the drawing with the governing calculation.",
+        ],
+      },
+      {
+        id: "cad-and-revit",
+        title: "CAD works. Revit is a separate step.",
+        paragraphs: [
+          "The CAD workflow has been tested in AutoCAD and is available internally. The preferred output is a DXF detail, with a simpler text-based DXF available for diagnosis.",
+          "The separate Revit 2025 renderer has reached live proof-of-concept and full-layout tests. Its latest text-formatting correction still needs live acceptance, so I don't present it as a finished Revit workflow.",
+          "Working on both has made the boundary clear: parsing calculation results and reproducing a usable drawing are different problems. The responsible engineer still checks values, signs, zones, applicability, and the final drawing against the calculation and office requirements.",
+        ],
+      },
     ],
+    cardTags: ["TEDDS to CAD", "Python", "Drawing QC"],
     technologies: ["Python", "python-docx", "ezdxf", "PyInstaller", "AutoCAD / DXF", "Revit API / C#"],
     technicalNotes: [
-      "The production CAD path transfers values; it does not calculate wind loads or determine applicability",
-      "The current Revit renderer targets Revit 2025 and still has focused live-acceptance items",
-      "Generated drafting outputs require comparison against the governing calculation and office standards",
+      "CAD v1.3.5.3 is the packaged internal workflow. Preferred DXF output uses AC1015; the diagnostic LINE/TEXT fallback uses AC1009.",
+      "The Revit v1.4.2.2 development track includes template validation and transaction rollback safeguards. Live acceptance of its latest rich-text correction is pending.",
+      "This is a public description of internal work. Source code, office templates, and project drawings are not distributed here.",
     ],
-    impact:
-      "It reduces repetitive transcription and drafting setup while leaving calculation ownership, applicability decisions, and final drawing QC with the responsible engineer.",
-    currentState:
-      "CAD v1.3.5.3 is the frozen shareable AutoCAD workflow. Revit v1.4.2.2 is a separate development track with live acceptance still pending for its latest rich-text correction.",
     links: [],
   },
   {
@@ -110,37 +87,98 @@ export const projects: readonly Project[] = [
     name: "AISC Section Finder",
     shortName: "AISC Section Finder",
     group: "Engineering tools",
-    type: "Structural Investigation Tool",
-    status: "Internal · Case Study",
-    version: "v0.4.0",
-    featured: true,
-    order: 3,
-    problem:
-      "Field measurements rarely match catalog dimensions exactly, which can make existing steel member identification slower than it needs to be.",
+    type: "Existing-member investigation",
+    status: "Internal Windows application",
     summary:
-      "A desktop tool that searches measured dimensions within a tolerance and ranks likely W, C, and L shapes for engineering review.",
-    overview:
-      "AISC Section Finder supports preliminary identification of existing structural steel members from field measurements. It is designed as a transparent aid, not a substitute for field verification, analysis, or professional judgment.",
-    solution:
-      "Users select a shape family, enter decimal or fractional dimensions, set a search tolerance, and review ranked dimensional matches with a clearly separated conservative alternative.",
-    features: [
-      "W-shape, channel (C), and angle (L) search workflows",
-      "Shape-specific measurement mapping and optional web-thickness input where appropriate",
-      "Tolerance filtering with weighted match scoring and relative confidence",
-      "Near-match conservative alternative by weight, section modulus, or area",
-      "Resizable desktop interface with light and dark themes",
-      "Standalone Windows distribution and keyboard-first data entry",
+      "Field measurements rarely match catalog dimensions exactly. This Python tool ranks likely steel sections so an engineer has a better place to start.",
+    introduction:
+      "During my internship, I built a tool to make the search through AISC tables less tedious. The aim was to turn imperfect field measurements into a useful shortlist, while keeping the uncertainty visible.",
+    sections: [
+      {
+        id: "field-to-shortlist",
+        title: "From field measurements to likely sections",
+        paragraphs: [
+          "Choose a shape family, enter the dimensions you measured, and set a search tolerance. Decimal and fractional inputs are accepted. The tool filters the catalog and ranks the remaining sections by weighted dimensional match.",
+        ],
+        items: [
+          "W shapes: depth, flange width, flange thickness, and optional web thickness.",
+          "Channels (C): depth, flange width, and web thickness.",
+          "Angles (L): both leg dimensions and thickness.",
+        ],
+      },
+      {
+        id: "reading-results",
+        title: "A match is a starting point",
+        paragraphs: [
+          "Results show the section label, key dimensions, weight, section modulus, area, match score, and relative confidence. A separate conservative alternative can be selected from near matches by weight, section modulus, or area.",
+          "That distinction matters: the closest dimensional match and a conservative candidate answer different questions. Neither establishes a member's identity or load-carrying capacity. Field verification and engineering review still determine what can be used in an assessment.",
+        ],
+      },
+      {
+        id: "using-the-tool",
+        title: "Making it practical to use",
+        paragraphs: [
+          "The packaged Windows app supports all three shape families, keyboard-first entry, a resizable interface, and light and dark themes. It is distributed internally, so using it does not require a Python setup.",
+          "For me, the useful result is a repeatable search that shows its reasoning. It helps narrow the investigation without hiding the limits of the measurements.",
+        ],
+      },
     ],
+    cardTags: ["Field investigation", "Steel sections", "Python"],
     technologies: ["Python", "Tkinter", "pandas", "openpyxl", "PyInstaller"],
     technicalNotes: [
-      "Default search tolerance is 0.25 inches and remains user-adjustable",
-      "Results include catalog label, key dimensions, W, Sx, A, match score, and confidence",
-      "The tool validates the expected AISC database sheet and required columns at startup",
+      "The v0.4.0 application uses adjustable dimensional tolerances, with a default of 0.25 inches. This is an absolute difference in each measured dimension, not a percentage. Confidence is a relative match score, not a probability of correct identification.",
+      "The expected database sheet and required columns are checked at startup.",
+      "The AISC Shapes Database is licensed reference material and is not distributed on this site. The tool is not an official AISC product.",
     ],
-    impact:
-      "It gives field measurements a repeatable, reviewable search path and makes uncertainty visible instead of presenting one catalog section as a definitive identification.",
-    currentState:
-      "Packaged v0.4.0 Windows application with W, C, and L shape-family support and internal distribution documentation.",
+    links: [],
+  },
+  {
+    slug: "design-criteria-calculator",
+    name: "Design Criteria Calculator",
+    shortName: "Design Criteria",
+    group: "Engineering tools",
+    type: "Design criteria workbook",
+    status: "Internal workbook · In development",
+    summary:
+      "An Excel workbook that brings structural design inputs and calculation helpers together, with assumptions and unfinished checks kept visible.",
+    introduction:
+      "Design criteria have a habit of ending up in too many places: hazard reports, reference tables, spreadsheets, and separate engineering decisions. I wanted a clearer way to bring them together and review what goes into the calculation package.",
+    sections: [
+      {
+        id: "different-kinds-of-input",
+        title: "Not every input means the same thing",
+        paragraphs: [
+          "A value copied from a hazard report, a formula result, and an engineer's selection shouldn't look interchangeable. The workbook separates inputs, calculations, sources, and guidance so the origin of a value stays visible.",
+          "Hazard information is entered manually from external reports. Engineer-selected parameters remain editable, and missing checks are marked VERIFY or Needs Review. The workbook organizes those decisions; it doesn't make them authoritative.",
+        ],
+      },
+      {
+        id: "calculation-helpers",
+        title: "Where formulas help",
+        items: [
+          "Snow: factors for exposure, thermal conditions, and importance; flat-roof snow pressure; and a controlled slope-factor interpolation helper.",
+          "Wind: a directional exposure review framework with engineer overrides, rather than an automatic exposure decision.",
+          "Seismic: system lookup for R, Ω₀, Cd, and permitted-height status, with approximate-period and equivalent-lateral-force Cs guidance.",
+          "Project information, rain, geotechnical inputs, and an expandable gravity-load table feed a consolidated output sheet alongside the other criteria.",
+        ],
+      },
+      {
+        id: "reviewable-summary",
+        title: "One summary, with the working still visible",
+        paragraphs: [
+          "The output sheet pulls selected values together for review. The supporting sheets remain available so someone can trace a result back to its input, reference, or assumption.",
+          "The current internal draft includes the calculation helpers and summary, but source confirmation and incomplete checks still need attention. Full wind-pressure calculations, component-and-cladding pressures, and snow drift calculations remain outside its implemented scope.",
+          "The part I care about most is that handoff: a tidy summary is only useful if the next engineer can understand where it came from.",
+        ],
+      },
+    ],
+    cardTags: ["Excel", "ASCE 7-16", "Design inputs"],
+    technologies: ["Excel", "Formula-driven workflows", "ASCE 7-16", "Engineering QC"],
+    technicalNotes: [
+      "The v1.5 draft uses fourteen sheets, including centralized lookup tables and dedicated QC sheets.",
+      "External design criteria and reference values need verification for the project. Formula results do not replace checking applicability and assumptions.",
+      "The workbook and its reference content are internal and are not downloadable here.",
+    ],
     links: [],
   },
   {
@@ -148,42 +186,57 @@ export const projects: readonly Project[] = [
     name: "Fit Roulette",
     shortName: "Fit Roulette",
     group: "Personal software",
-    type: "Mobile-first PWA",
-    status: "Public · Active",
-    version: "v1.6",
-    featured: true,
-    order: 4,
-    problem:
-      "A real closet is more complicated than picking random clothes. Weather, occasion, recent wear, preferences, and bad combinations all matter.",
+    type: "Wardrobe PWA",
+    status: "Public · Actively developed",
     summary:
-      "A local-first wardrobe PWA for generating, adjusting, and logging outfits without accounts, a backend, or uploaded closet data.",
-    overview:
-      "Fit Roulette is the most mature personal application in this portfolio. It began as a quick outfit generator and grew through daily use into a versioned, mobile-first closet system with careful migration, offline, and accessibility behavior.",
-    solution:
-      "The app combines structured garment data with explicit compatibility rules, outfit history, context, and user controls while keeping wardrobe data in the browser.",
-    features: [
-      "One-press generation, repeat-aware rerolls, build-around-item, and item-swap workflows",
-      "Closet management with availability, archive states, pair rules, and exact bans",
-      "Unified garment editing with duplicate warnings and unsaved-draft protection",
-      "Manual logging and history editing with slot-conflict checks and preserved garment snapshots",
-      "Recency-aware selection, JSON backup / restore, and history date guardrails",
-      "Optional weather context with explicit location consent and manual / offline fallback",
-      "PWA installation, service-worker caching, and no-account local storage",
-      "Read-only closet and outfit-history insights with deterministic coverage analysis",
+      "Getting dressed from my own closet became a software project. Fit Roulette suggests outfits, remembers what I've logged, and keeps wardrobe data in the browser.",
+    introduction:
+      "I wanted an easier way to put outfits together using clothes I already owned. A simple randomizer was a start. Using it regularly gave me a much longer list of things I wanted it to understand.",
+    sections: [
+      {
+        id: "more-than-random",
+        title: "A little less random than the name suggests",
+        paragraphs: [
+          "The app considers garment compatibility, occasion, availability, and recent logged wear. I can generate an outfit, reroll it, start with one item I want to wear, or swap a piece without starting over.",
+          "Pair preferences and exact combination bans give me a way to tell it what works. Rerolls prefer combinations I haven't seen in the current session, then allow repeats when the valid pool runs out.",
+        ],
+      },
+      {
+        id: "using-it-every-day",
+        title: "The parts that grew out of using it",
+        items: [
+          "Closet editing includes availability and archive states, duplicate warnings, and protection for unsaved changes.",
+          "Outfit history supports manual logging and editing, with saved garment snapshots so past outfits don't silently change when the closet does.",
+          "Optional weather context works alongside manual controls and an offline fallback. Location is only requested with consent.",
+          "Read-only insights show closet composition, logged activity, and compatibility coverage without treating a suggested outfit as one actually worn.",
+        ],
+      },
+      {
+        id: "keeping-data-local",
+        title: "My closet doesn't need an account",
+        paragraphs: [
+          "Fit Roulette is a static HTML, CSS, and JavaScript app. Wardrobe and history data live in localStorage, and a service worker caches the app for offline use. There is no account, backend, or uploaded closet database.",
+          "That makes backup important. JSON export and restore let users keep their own copies, and schema migrations preserve recovery copies before replacing older data. Browser-local storage is convenient, but it isn't a substitute for a downloaded backup.",
+        ],
+      },
+      {
+        id: "ongoing-work",
+        title: "A small annoyance, a substantial project",
+        paragraphs: [
+          "The public v1.6.3 release brings these pieces together. Keeping the app useful as it grows has meant paying attention to data migration, offline behavior, accessibility, and the details of editing and logging—not just outfit generation.",
+          "This is the project I keep coming back to because I use it. The interesting work is often in the small interactions I notice after the original idea already works.",
+        ],
+      },
     ],
+    cardTags: ["Outfit generation", "PWA", "Local storage"],
     technologies: ["HTML", "CSS", "JavaScript", "PWA", "Service Worker", "localStorage"],
     technicalNotes: [
-      "Static application with no backend, database server, paid API, analytics, or external model",
-      "Schema-versioned local data with protected recovery copies during migrations",
-      "Opt-in weather sends rounded coordinates to Open-Meteo, never closet or history data; manual context remains available",
-      "Coverage analysis reports a lower bound when its candidate limit is reached; layering supports one optional layer, not arbitrary stacks",
+      "Opt-in weather sends rounded coordinates to Open-Meteo, never wardrobe or outfit-history data. Manual context remains available without location or network access.",
+      "Insights are calculated locally. Coverage analysis reports a lower bound if its candidate limit is reached; it does not extrapolate a total.",
+      "Layering supports one optional layer. Physical garment fit and arbitrary layer stacks are not modeled.",
     ],
-    impact:
-      "It demonstrates long-term product iteration: solving a small daily problem, using the software personally, and improving its data model, interactions, resilience, and accessibility release by release.",
-    currentState:
-      "Public v1.6 series with a live GitHub Pages deployment. Recent updates improve interface consistency, garment editing, and manual-history safeguards.",
     links: [
-      { label: "Live demo", href: "https://crunchybrunch.github.io/fit-roulette/", kind: "demo" },
+      { label: "Try Fit Roulette", href: "https://crunchybrunch.github.io/fit-roulette/", kind: "demo" },
       { label: "View GitHub", href: "https://github.com/CrunchyBrunch/fit-roulette", kind: "github" },
     ],
   },
@@ -192,46 +245,53 @@ export const projects: readonly Project[] = [
     name: "LionLog",
     shortName: "LionLog",
     group: "Personal software",
-    type: "Dining menu PWA",
-    status: "Experimental · In Development",
-    version: "v0.2.0-alpha.4",
-    featured: false,
-    order: 5,
-    problem:
-      "Checking Penn State dining options means navigating menus by location, date, and meal while keeping track of serving information and data freshness.",
+    type: "Penn State dining menu browser",
+    status: "Alpha · In development",
     summary:
-      "A mobile-first Penn State dining menu browser with validated public-menu snapshots, nutrition display, and explicit data-freshness states. Currently in alpha development.",
-    overview:
-      "LionLog has grown from a sample-data prototype into a menu browser backed by validated snapshots of Penn State public dining menus. It keeps sample mode separate and makes unavailable or outdated data visible. It is an independent project, not an official Penn State service.",
-    solution:
-      "A manually run ingestion workflow retrieves public menu HTML outside the React app, validates versioned snapshots, and exports a static catalog. The PWA reads those snapshots through provider interfaces and labels their source and freshness.",
-    features: [
-      "Dining hall, meal period, service date, and venue selection",
-      "Responsive menus with source serving units and available nutrition information",
-      "Manual public-menu ingestion, snapshot validation, and static catalog export",
-      "Explicit live, cached, stale, sample, and unavailable data states",
-      "Separate sample mode with no silent sample substitution when menu data is unavailable",
-      "PWA shell and a reviewable field-release artifact workflow",
+      "My attempt to make Penn State dining menus and available nutrition information easier to browse. Currently an alpha, independent of Penn State.",
+    introduction:
+      "Penn State publishes its dining menus, but finding what I want to eat—and the available nutrition information—can still take more digging than I'd like. LionLog starts with making that information easier to find on a phone.",
+    sections: [
+      {
+        id: "menu-browser",
+        title: "Starting with the menu",
+        paragraphs: [
+          "The alpha lets me browse by dining hall, service date, meal period, and venue. It shows the source's serving units and available nutrition information, with separate states for current, cached, stale, sample, and unavailable data.",
+          "It's a menu browser at this stage. Meal planning, nutrition targets, calorie tracking, accounts, and a food diary are not implemented.",
+        ],
+      },
+      {
+        id: "trusting-the-data",
+        title: "The harder part is knowing what to show",
+        paragraphs: [
+          "A polished menu isn't helpful if the data is old or incomplete. I separated data retrieval from the interface: a manually run process reads public menu HTML, validates versioned snapshots, and exports a static catalog for the app.",
+          "The React interface reads those snapshots through provider interfaces. Missing, invalid, or expired publications show as unavailable. Sample mode is a deliberate choice; it never quietly fills a gap in the real menu.",
+          "That separation lets me work on the interface without pretending the data source is more reliable than it is.",
+        ],
+      },
+      {
+        id: "where-it-stands",
+        title: "Still an exploration",
+        paragraphs: [
+          "The v0.2.0-alpha.4 milestone can prepare a reviewable app artifact with validated public-menu snapshots. Preparation and public deployment are separate manual steps, and scheduled production retrieval is not implemented.",
+          "LionLog is an independent, unofficial project, not affiliated with or endorsed by Penn State. It reads public menu information and does not use an official Penn State API.",
+        ],
+      },
     ],
+    cardTags: ["Dining menus", "Nutrition data", "Alpha"],
     technologies: ["React", "TypeScript", "Vinext", "Vite", "Zod", "PWA"],
     technicalNotes: [
-      "Public-menu HTML is parsed outside the browser app; no official Penn State API is claimed",
-      "Snapshots are validated before export and delivery; missing, invalid, or expired data is unavailable rather than replaced with samples",
-      "Release preparation and deployment are separate, manually dispatched workflows; scheduled production scraping is not implemented",
-      "Meal optimization, nutrition targets, accounts, a food diary, and analytics are not implemented",
+      "Public-menu HTML is parsed outside the browser app. Snapshots are validated at ingestion and again before static export.",
+      "Versioned data contracts keep retrieval, validation, and presentation separate. The PWA shell does not scrape Penn State.",
     ],
-    impact:
-      "The project demonstrates a transparent data pipeline: separating retrieval from presentation, validating source data, and making freshness and failure states understandable to the user.",
-    currentState:
-      "v0.2.0-alpha.4 supports preparing a reviewable field-release artifact with validated menu snapshots. Public deployment remains a separate step; this is a menu browser, not a completed meal-planning or logging system.",
     links: [
       { label: "View GitHub", href: "https://github.com/CrunchyBrunch/LionLog", kind: "github" },
     ],
   },
 ] as const;
 
-export const featuredProjects = projects.filter((project) => project.featured);
-export const secondaryProjects = projects.filter((project) => !project.featured);
+export const engineeringProjects = projects.filter((project) => project.group === "Engineering tools");
+export const personalProjects = projects.filter((project) => project.group === "Personal software");
 
 export function getProject(slug: string): Project {
   const project = projects.find((candidate) => candidate.slug === slug);

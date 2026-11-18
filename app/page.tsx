@@ -20,7 +20,7 @@ export default function Home() {
               <a className="button button-primary" href={withBasePath("/#work")}>Selected work <span aria-hidden="true">↓</span></a>
               <a className="text-link" href={withBasePath(siteConfig.resumePath)} target="_blank" rel="noreferrer">Résumé <span aria-hidden="true">↗</span></a>
             </div>
-            <p className="hero-availability">Seeking a <strong>Summer 2027</strong> structural engineering internship <span aria-hidden="true">·</span> Graduating 2029</p>
+            <p className="hero-availability">Incoming Structural Engineering Intern at WPM <span aria-hidden="true">·</span> <strong>Summer 2027</strong> <span aria-hidden="true">·</span> Expected graduation May 2029</p>
           </Reveal>
           <div className="hero-portrait">
             <Image src={withBasePath("/brooks-estadt-portrait.webp")} alt="Brooks Estadt wearing a navy jacket and light blue shirt" width={800} height={800} unoptimized priority sizes="(max-width: 760px) 176px, (max-width: 1000px) 20vw, 204px" />
@@ -77,7 +77,7 @@ export default function Home() {
 
         <section className="contact-section" id="contact" aria-labelledby="contact-title">
           <div className="contact-inner">
-            <div><p className="eyebrow">Contact</p><h2 id="contact-title">Get in touch</h2><p>I&apos;m looking for a Summer 2027 structural engineering internship. If my work seems relevant to your team, I&apos;d be glad to connect.</p></div>
+            <div><p className="eyebrow">Contact</p><h2 id="contact-title">Get in touch</h2><p>I&apos;m always glad to connect with engineers and others interested in structures, thoughtful design, and useful software.</p></div>
             <div className="contact-links">
               <a className="contact-email" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">↗</span></a>
               <div className="social-links">
